@@ -1,4 +1,6 @@
-import { sumar } from './server';
+import server from "./server";
 
-console.log("desde index.ts");
-sumar();
+
+server.listen(4000, () =>{
+    console.log(`Rest API puerto 4000`);
+})
