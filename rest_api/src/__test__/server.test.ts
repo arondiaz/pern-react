@@ -1,9 +1,10 @@
-describe("Nuestro primer test", () => {
-  test("Debe verificar que 1 + 1 sean 2", () => {
-    expect(1 + 1).toBe(2);
-  });
+import request from "supertest";
+import server from "../server";
 
-  test("1 + 1 no debe ser 3", () => {
-    expect(1 + 1).not.toBe(3);
+describe("GET /api", () => {
+  test("should send back a json response", async () => {
+    const res = await request(server).get("/api");
+    expect(res.status).toBe(200);
+    console.log(res.status);
   });
 });
