@@ -73,3 +73,21 @@ export const updateAvailability = async (req: Request, res: Response) => {
     console.log(error);
   }
 };
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+
+    if (!product) {
+      return res.status(400).json({ error: "No existe el producto" });
+    }
+
+    //en caso de no poderse eliminar informacion, se podria realizar un eliminado lógico donde tendriamos que tener una columna con un boolean tipo visibility para mostrar o no determinada informacion
+    await product.destroy();
+
+    res.status(200).json({ data: "Producto eliminado correctamente" });
+  } catch (error) {
+    console.log(error);
+  }
+};
