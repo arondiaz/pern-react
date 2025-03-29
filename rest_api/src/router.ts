@@ -1,20 +1,21 @@
 import { Router } from "express";
-import { createProduct, getProducts, getProductID } from "./handlers/product";
+import {
+  createProduct,
+  getProducts,
+  getProductID,
+  updateProduct,
+} from "./handlers/product";
 import { body, param } from "express-validator";
 import { handleInputErrors } from "./middleware";
 
 const router = Router();
 
-router.get("/",
-  getProducts
-);
+router.get("/", getProducts);
 
-router.get("/:id",
-
+router.get(
+  "/:id",
   param("id").isInt().withMessage("ID no válido"),
-
   handleInputErrors,
-
   getProductID
 );
 
@@ -37,9 +38,26 @@ router.post(
   createProduct
 );
 
-router.put("/", (req, res) => {
-  res.send("Desde PUT");
-});
+router.put(
+  "/:id",
+  //validation
+  body("name")
+    .notEmpty()
+    .withMessage("El nombre del producto no puede ir vacio"),
+
+  body("price")
+    .isNumeric()
+    .withMessage("Valor no válido")
+    .notEmpty()
+    .withMessage("El precio del producto no puede ir vacio"),
+  body("availability")
+    .isBoolean()
+    .withMessage("Valor para disponibilidad no válido"),
+
+  handleInputErrors,
+
+  updateProduct
+);
 
 router.patch("/", (req, res) => {
   res.send("Desde PATCH");
