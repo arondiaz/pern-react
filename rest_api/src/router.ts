@@ -4,6 +4,7 @@ import {
   getProducts,
   getProductID,
   updateProduct,
+  updateAvailability,
 } from "./handlers/product";
 import { body, param } from "express-validator";
 import { handleInputErrors } from "./middleware";
@@ -59,9 +60,11 @@ router.put(
   updateProduct
 );
 
-router.patch("/", (req, res) => {
-  res.send("Desde PATCH");
-});
+router.patch(
+  "/:id",
+
+  updateAvailability
+);
 
 router.delete("/", (req, res) => {
   res.send("Desde DELETE");

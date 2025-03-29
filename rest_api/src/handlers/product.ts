@@ -48,7 +48,25 @@ export const updateProduct = async (req: Request, res: Response) => {
     }
 
     await product.update(req.body);
-    await product.save()
+    await product.save();
+
+    res.json({ data: product });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateAvailability = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+
+    if (!product) {
+      return res.status(400).json({ error: "No existe el producto" });
+    }
+
+    product.availability = !product.availability;
+    await product.save();
 
     res.json({ data: product });
   } catch (error) {
