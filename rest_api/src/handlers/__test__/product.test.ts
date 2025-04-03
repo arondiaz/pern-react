@@ -48,3 +48,26 @@ describe("GET /api/products", () => {
     expect(response.status).not.toBe(404);
   });
 });
+
+describe("GET /api/products/:id", () => {
+  test("should check if api/products/2000 url not exists", async () => {
+    const productId = 2000;
+    const response = await request(server).get(`/api/products/${productId}`);
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toBe("No existe el producto");
+  });
+
+  test("should check if id it's valid", async () => {
+    const productId = "producto123";
+    const response = await request(server).get(`/api/products/${productId}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+  });
+
+  test("should check if api/products/1 url exists", async () => {
+    const productId = 1;
+    const response = await request(server).get(`/api/products/${productId}`);
+    expect(response.status).toBe(200);
+  });
+});

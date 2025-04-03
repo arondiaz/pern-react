@@ -18,7 +18,7 @@ export const getProductID = async (req: Request, res: Response) => {
     const findProduct = await Product.findByPk(id);
 
     if (!findProduct) {
-      return res.status(400).json({ error: "No existe el producto" });
+      return res.status(404).json({ error: "No existe el producto" });
     }
     res.json({ data: findProduct });
   } catch (error) {
