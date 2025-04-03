@@ -11,7 +11,7 @@ describe("POST /api/products", () => {
   test("should validate the price is greater than 0", async () => {
     const response = await request(server).post("/api/products").send({
       name: "Mouse",
-      price: 0,
+      price: -1000,
     });
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty("errors");
@@ -30,5 +30,21 @@ describe("POST /api/products", () => {
 
     expect(response.status).not.toBe(404);
     expect(response.body).not.toHaveProperty("error");
+  });
+});
+
+describe("GET /api/products", () => {
+  test("should check if api/products url exists", async () => {
+    const response = await request(server).get("/api/products");
+    expect(response.status).not.toBe(404);
+  });
+
+  test("get a json response with products", async () => {
+    const response = await request(server).get("/api/products");
+
+    expect(response.status).toBe(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body).toHaveProperty("data");
+    expect(response.status).not.toBe(404);
   });
 });
