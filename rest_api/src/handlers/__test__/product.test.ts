@@ -102,3 +102,19 @@ describe("PUT /api/products/:id", () => {
     expect(response.body).toHaveProperty("data");
   });
 });
+
+describe("DELETE /api/products/:id", () => {
+  test("should check if api/products/2000 url not exists", async () => {
+    const productId = 2000;
+    const response = await request(server).delete(`/api/products/${productId}`);
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("error");
+    expect(response.body.error).toBe("No existe el producto");
+  });
+
+  test("should check if the product exist", async () => {
+    const response = await request(server).delete(`/api/products/1`);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("data");
+  });
+});
