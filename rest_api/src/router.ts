@@ -54,7 +54,8 @@ router.put(
     .isNumeric()
     .withMessage("Valor no válido")
     .notEmpty()
-    .withMessage("El precio del producto no puede ir vacio"),
+    .withMessage("El precio del producto no puede ir vacio")
+    .custom(value => value > 0).withMessage("Precio no válido"),
   body("availability")
     .isBoolean()
     .withMessage("Valor para disponibilidad no válido"),

@@ -71,3 +71,34 @@ describe("GET /api/products/:id", () => {
     expect(response.status).toBe(200);
   });
 });
+
+describe("PUT /api/products/:id", () => {
+  test("should display validation error messages when updating a product", async () => {
+    const response = await request(server).put(`/api/products/1`).send({});
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+  });
+
+  test("should display validation error messages when the price its less than 0", async () => {
+    const response = await request(server).put(`/api/products/1`).send({
+      name: "MAC",
+      price: -639,
+      availability: true,
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("errors");
+  });
+
+  test("should update an existing product", async () => {
+    const response = await request(server).put(`/api/products/1`).send({
+      name: "MAC",
+      price: 639,
+      availability: true,
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("data");
+  });
+});
