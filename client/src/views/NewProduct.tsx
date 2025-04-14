@@ -1,4 +1,4 @@
-import { Link,Form,useActionData,ActionFunctionArgs } from "react-router-dom";
+import { Link,Form, useActionData, ActionFunctionArgs, redirect } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import { productServices } from "../services/productServices";
 
@@ -10,7 +10,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     error = "Todos los campos son obligatorios";
   }
 
-  return error.length > 1 ? error : productServices(data);
+  await productServices(data)
+
+  return error.length > 1 ? error : redirect("/");
 };
 
 const NewProduct = () => {
