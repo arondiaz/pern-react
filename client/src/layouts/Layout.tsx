@@ -12,10 +12,10 @@ const Layout = () => {
         <ul className="flex justify-center gap-5 text-white text-lg pb-4 ">
           <Link to={"/"}>
             {" "}
-            <li className="hover:text-amber-200">Inicio</li>
+            <li className="hover:text-purple-200">Inicio</li>
           </Link>
           <Link to={"productos/nuevo"}>
-            <li className="hover:text-amber-200">Agregar producto</li>
+            <li className="hover:text-purple-200">Agregar producto</li>
           </Link>
         </ul>
       </header>

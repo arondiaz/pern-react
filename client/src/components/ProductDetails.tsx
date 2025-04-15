@@ -19,9 +19,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       <td className="p-3 text-lg text-gray-800">
         {isAvailable ? "Disponible" : "No disponible"}
       </td>
-      <td className="p-3 text-lg text-gray-800 ">
-        <div className="bg-amber-400 gap-2 flex justify-center rounded-2xl">
-          <button onClick={() =>  navigate(`producto/${id}/editar`)}>Editar</button>
+      <td className="p-3 text-lg text-gray-800">
+        <div className="bg-purple-800 gap-2 flex justify-center w-full rounded-2xl text-white">
+          <button className="uppercase font-bold text-md cursor-pointer" onClick={() =>  navigate(`producto/${id}/editar`)}>Editar</button>
         </div>
       </td>
     </tr>

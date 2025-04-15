@@ -48,7 +48,7 @@ const EditProduct = () => {
         <h2 className="text-2xl font-black text-slate-500">Editar producto</h2>
         <Link
           to={"/"}
-          className="bg-blue-600 rounded-md p-3 text-sm font-bold text-white"
+          className="bg-purple-900 rounded-md p-3 text-sm font-bold text-white"
         >
           {" "}
           Volver
@@ -102,7 +102,7 @@ const EditProduct = () => {
         </div>
         <input
           type="submit"
-          className="mt-5 w-full bg-blue-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
+          className="mt-5 w-full bg-purple-800 p-2 text-white font-bold text-lg cursor-pointer rounded"
           value="Actualizar producto"
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}
