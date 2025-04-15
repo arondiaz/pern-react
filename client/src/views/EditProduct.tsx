@@ -1,6 +1,7 @@
-import {Link,Form,LoaderFunctionArgs,redirect,useLoaderData,} from "react-router-dom";
-import { getProductById } from "../services/productServices";
+import { Link, Form, LoaderFunctionArgs, redirect, useLoaderData, useActionData, ActionFunctionArgs } from "react-router-dom";
+import { getProductById, updateProduct } from "../services/productServices";
 import { Product } from "../types";
+import ErrorMessage from "../components/ErrorMessage";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (params.id !== undefined) {
@@ -13,8 +14,33 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   }
 };
 
+export const action = async ({ request, params }: ActionFunctionArgs) => {
+  const data = Object.fromEntries(await request.formData());
+
+  let error = "";
+  if (Object.values(data).includes("")) {
+    error = "Todos los campos son obligatorios";
+  }
+
+  if (error.length) {
+    return error;
+  }
+
+  if (params.id !== undefined) {
+    const id = +params.id;
+    await updateProduct(data, id);
+    return redirect("/");
+  }
+};
+
+const availabilityOptions = [
+  { name: "Disponible", value: true },
+  { name: "No Disponible", value: false },
+];
+
 const EditProduct = () => {
   const product = useLoaderData() as Product;
+  const error = useActionData() as string;
 
   return (
     <>
@@ -59,22 +85,27 @@ const EditProduct = () => {
 
         <div className="mb-4">
           <label className="text-gray-800" htmlFor="availability">
-            Disponibilidad
+            Disponibilidad:
           </label>
-          <input
+          <select
             id="availability"
-            type="boolean"
             className="mt-2 block w-full p-3 bg-gray-50"
-            placeholder=""
             name="availability"
-          />
+            defaultValue={product?.availability.toString()}
+          >
+            {availabilityOptions.map((option) => (
+              <option key={option.name} value={option.value.toString()}>
+                {option.name}
+              </option>
+            ))}
+          </select>
         </div>
         <input
           type="submit"
           className="mt-5 w-full bg-blue-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
           value="Actualizar producto"
         />
-        {/* {error && <ErrorMessage>{error}</ErrorMessage>} */}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
       </Form>
     </>
   );
