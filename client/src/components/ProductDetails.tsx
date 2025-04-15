@@ -21,11 +21,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       </td>
       <td className="p-3 text-lg text-gray-800 ">
         <div className="bg-amber-400 gap-2 flex justify-center rounded-2xl">
-          <button onClick={() =>  navigate(`producto/${id}/editar`, {
-            state: {
-              product
-            }
-          })}>Editar</button>
+          <button onClick={() =>  navigate(`producto/${id}/editar`)}>Editar</button>
         </div>
       </td>
     </tr>
