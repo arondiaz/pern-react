@@ -1,15 +1,8 @@
-import { ActionFunctionArgs, Form, redirect, useFetcher, useNavigate } from "react-router-dom";
+import { Form, useFetcher, useNavigate } from "react-router-dom";
 import { Product } from "../types";
-import { deleteProductById } from "../services/productServices";
 
 type ProductDetailsProps = {
   product: Product;
-};
-
-export const action = async ({ params }: ActionFunctionArgs) => {
-
-  await deleteProductById(params.id);
-  return redirect("/");
 };
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {

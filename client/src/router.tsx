@@ -1,9 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import Products, {loader as productsLoader, action as updatedAvailabilityAction} from "./views/Products";
-import NewProduct, {action as newProductAction} from "./views/NewProduct";
-import EditProduct, {loader as editProductLoader, action as editProductAction} from "./views/EditProduct";
-import {action as deleteProductAction} from "./components/ProductDetails";
+import Products from "./views/Products";
+import { loader as productsLoader } from "./loaders/getProductsLoader";
+import { action as updatedAvailabilityAction } from "./actions/updateProductAvailabilityAction";
+import NewProduct from "./views/NewProduct";
+import { action as addProductAction } from "./actions/addProductAction";
+import EditProduct from "./views/EditProduct";
+import { loader as getProductByIdLoader } from "./loaders/getProductByIdLoader";
+import { action as updateProductAction } from "./actions/updateProductAction";
+import { action as deleteProductAction } from "./actions/deleteProductByIdAction";
 
 export const router = createBrowserRouter([
   {
@@ -14,23 +19,23 @@ export const router = createBrowserRouter([
         index: true,
         element: <Products />,
         loader: productsLoader,
-        action: updatedAvailabilityAction
+        action: updatedAvailabilityAction,
       },
       {
         path: "productos/nuevo",
-        element: <NewProduct/>,
-        action: newProductAction
+        element: <NewProduct />,
+        action: addProductAction,
       },
       {
         path: "producto/:id/editar",
-        element: <EditProduct/>,
-        loader: editProductLoader,
-        action: editProductAction
+        element: <EditProduct />,
+        loader: getProductByIdLoader,
+        action: updateProductAction,
       },
       {
         path: "producto/:id/eliminar",
-        action: deleteProductAction
-      }
+        action: deleteProductAction,
+      },
     ],
   },
 ]);

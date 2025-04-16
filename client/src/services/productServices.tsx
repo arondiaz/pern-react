@@ -12,7 +12,7 @@ type ProductData = {
   [k: string]: FormDataEntryValue;
 };
 
-export const productServices = async (data: ProductData) => {
+export const addProduct = async (data: ProductData) => {
   try {
     const result = safeParse(DraftProductSchema, {
       name: data.name,

@@ -1,38 +1,7 @@
-import { Link, Form, LoaderFunctionArgs, redirect, useLoaderData, useActionData, ActionFunctionArgs } from "react-router-dom";
-import { getProductById, updateProduct } from "../services/productServices";
+import { Link, Form, useLoaderData, useActionData } from "react-router-dom";
 import { Product } from "../types";
 import ErrorMessage from "../components/ErrorMessage";
 import ProductForm from "../components/ProductForm";
-
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  if (params.id !== undefined) {
-    const product = await getProductById(params.id);
-
-    if (!product) {
-      return redirect("/");
-    }
-    return product;
-  }
-};
-
-export const action = async ({ request, params }: ActionFunctionArgs) => {
-  const data = Object.fromEntries(await request.formData());
-
-  let error = "";
-  if (Object.values(data).includes("")) {
-    error = "Todos los campos son obligatorios";
-  }
-
-  if (error.length) {
-    return error;
-  }
-
-  if (params.id !== undefined) {
-    const id = +params.id;
-    await updateProduct(data, id);
-    return redirect("/");
-  }
-};
 
 const availabilityOptions = [
   { name: "Disponible", value: true },

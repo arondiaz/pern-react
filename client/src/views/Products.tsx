@@ -1,18 +1,6 @@
-import { ActionFunctionArgs, useLoaderData } from "react-router-dom";
-import { getProducts, updateProductAvailability } from "../services/productServices";
+import {  useLoaderData } from "react-router-dom";
 import ProductDetails from "../components/ProductDetails";
 import { Product } from "../types";
-
-export const loader = async () => {
-  const products = await getProducts();
-  return products;
-};
-
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const data = Object.fromEntries(await request.formData());
-
-  await updateProductAvailability(data);
-};
 
 const Products = () => {
   const products = useLoaderData() as Product[];
