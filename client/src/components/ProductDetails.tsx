@@ -29,7 +29,6 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
               {isAvailable ? "Disponible" : "No disponible"}
 
             </button>
-
         </fetcher.Form>
       </td>
       <td className="p-3 text-lg text-gray-800">
