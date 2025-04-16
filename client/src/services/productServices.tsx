@@ -72,7 +72,6 @@ export const updateProduct = async (data: ProductData, id: Product["id"]) => {
     const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`;
 
     const updatedProduct = safeParse(ProductSchema, {
-   
       id,
       name: data.name,
       price: Number(data.price),
@@ -80,19 +79,28 @@ export const updateProduct = async (data: ProductData, id: Product["id"]) => {
     });
 
     await axios.put(url, updatedProduct.output);
-
   } catch (error) {
     console.log(error);
   }
 };
-
 
 export const deleteProductById = async (id: Product["id"]) => {
   try {
     const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`;
 
     await axios.delete(url);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+export const updateProductAvailability = async (data: ProductData) => {
+  try {
+    const { id } = data;
+
+    const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`;
+
+    await axios.patch(url, id);
   } catch (error) {
     console.log(error);
   }

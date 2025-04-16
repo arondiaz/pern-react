@@ -1,11 +1,17 @@
-import { useLoaderData } from "react-router-dom";
-import { getProducts } from "../services/productServices";
+import { ActionFunctionArgs, useLoaderData } from "react-router-dom";
+import { getProducts, updateProductAvailability } from "../services/productServices";
 import ProductDetails from "../components/ProductDetails";
 import { Product } from "../types";
 
 export const loader = async () => {
   const products = await getProducts();
   return products;
+};
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const data = Object.fromEntries(await request.formData());
+
+  await updateProductAvailability(data);
 };
 
 const Products = () => {
@@ -28,12 +34,8 @@ const Products = () => {
             </tr>
           </thead>
           <tbody>
-
-            {products.map(product => (
-              <ProductDetails
-              key={product.id}
-              product={product}
-              />
+            {products.map((product) => (
+              <ProductDetails key={product.id} product={product} />
             ))}
           </tbody>
         </table>
