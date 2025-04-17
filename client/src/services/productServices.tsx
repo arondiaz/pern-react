@@ -1,10 +1,5 @@
 import { safeParse } from "valibot";
-import {
-  DraftProductSchema,
-  ProductsSchema,
-  ProductSchema,
-  Product,
-} from "../types";
+import { DraftProductSchema, ProductsSchema, ProductSchema, Product } from "../types";
 import axios from "axios";
 import { toBoolean } from "../helpers";
 
@@ -97,10 +92,12 @@ export const deleteProductById = async (id: Product["id"]) => {
 export const updateProductAvailability = async (data: ProductData) => {
   try {
     const { id } = data;
+    const idN = (Number(id));
 
-    const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`;
 
-    await axios.patch(url, id);
+    const url = `${import.meta.env.VITE_API_URL}/api/products/${idN}`;
+
+    await axios.patch(url, idN);
   } catch (error) {
     console.log(error);
   }

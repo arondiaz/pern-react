@@ -39,7 +39,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           >
             Editar
           </button>
-
+          {/* uso Form y no fetcher.form porque el action de este Form retorna un redirect */}
           <Form
             method="POST"
             action={`producto/${id}/eliminar`}
